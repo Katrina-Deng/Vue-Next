@@ -530,6 +530,7 @@ function baseCreateRenderer(
             optimized
           )
         } else if (shapeFlag & ShapeFlags.COMPONENT) {
+          // 初始化走组件处理流程
           processComponent(
             n1,
             n2,
@@ -2260,6 +2261,7 @@ function baseCreateRenderer(
     return hostNextSibling((vnode.anchor || vnode.el)!)
   }
 
+  //render 把虚拟dom转换成真实dom然后挂载到宿主上 
   const render: RootRenderFunction = (vnode, container, isSVG) => {
     if (vnode == null) {
       if (container._vnode) {
