@@ -1,0 +1,54 @@
+<div id="app">
+    <h1>响应式</h1>
+   <!-- <p>{{counter}}</p>  -->
+   <p @click=add2>{{counterRef}}</p> 
+   <p @click=add>{{counter}}</p> 
+   <p>{{counternum}}</p> 
+</div>
+<script src="../dist/vue.global.js"></script>
+
+<script>
+    const {createApp, reactive,ref,toRefs,onMounted} = Vue
+
+    // 抽离counter逻辑
+    function useCounter () {
+           // state proxy
+           const state  = reactive({
+                counter:2,
+                counternum:3
+            })
+            function add () {
+                state.counter++;
+            }
+            onMounted(() => {
+                state.counter = 10
+            })
+
+            return{
+               state ,
+                add
+            }
+    }
+    createApp({
+        // data() {
+        //     return {
+        //         counter: 1
+        //     }
+        // },
+        setup(){
+            // 使用count逻辑
+            const {state,add} = useCounter()
+         
+            // 单值响应式
+            const counterRef= ref(4)
+            // fn
+            
+            function add2 () {
+                counterRef.value++
+            }
+
+            return { ...toRefs(state)  ,counterRef,add,add2}
+        }
+        
+    }).mount('#app')
+</script>

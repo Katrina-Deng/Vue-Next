@@ -1273,7 +1273,7 @@ function baseCreateRenderer(
       updateComponent(n1, n2, optimized)
     }
   }
-
+  // 挂载组件
   const mountComponent: MountComponentFn = (
     initialVNode,
     container,
@@ -1283,6 +1283,7 @@ function baseCreateRenderer(
     isSVG,
     optimized
   ) => {
+    // 创建组件实例
     const instance: ComponentInternalInstance = (initialVNode.component = createComponentInstance(
       initialVNode,
       parentComponent,
@@ -1307,6 +1308,7 @@ function baseCreateRenderer(
     if (__DEV__) {
       startMeasure(instance, `init`)
     }
+    // 组件初始化
     setupComponent(instance)
     if (__DEV__) {
       endMeasure(instance, `init`)
@@ -1325,7 +1327,7 @@ function baseCreateRenderer(
       }
       return
     }
-
+    // 3. 数据响应式的副作用
     setupRenderEffect(
       instance,
       initialVNode,
@@ -2261,7 +2263,7 @@ function baseCreateRenderer(
     return hostNextSibling((vnode.anchor || vnode.el)!)
   }
 
-  //render 把虚拟dom转换成真实dom然后挂载到宿主上 
+  //render 把虚拟dom转换成真实dom然后挂载到宿主上
   const render: RootRenderFunction = (vnode, container, isSVG) => {
     if (vnode == null) {
       if (container._vnode) {
